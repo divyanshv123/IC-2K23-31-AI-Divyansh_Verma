@@ -456,7 +456,7 @@ if __name__ == "__main__":
 
 ### Program Output Screenshot
 
-![Water Jug Output Screenshot](lab_1/output/water_jug_output.png)
+![Water Jug Output Screenshot](output/water_jug_output.png)
 
 ### State Transition Diagram
 
@@ -487,7 +487,7 @@ flowchart TD
 
 ### BFS Solution Output Screenshot
 
-![Missionaries and Cannibals Output](lab_1/output/cannibal_missionary_output.png)
+![Missionaries and Cannibals Output](output/cannibal_missionary_output.png)
 
 ### State-Space River Crossing Sequence Diagram
 
@@ -529,7 +529,7 @@ sequenceDiagram
 
 ### Agent Execution Output Screenshot
 
-![Vacuum Cleaner Output](lab_1/output/vacuum_cleaner_output.png)
+![Vacuum Cleaner Output](output/vacuum_cleaner_output.png)
 
 ### Reflex Decision Flowchart
 
@@ -605,13 +605,13 @@ git clone https://github.com/divyanshv123/IC-2K23-31_AI_DivyanshVerma.git
 cd IC-2K23-31_AI_DivyanshVerma
 
 # Run Water Jug Problem
-python lab_1/water_jug.py
+python water_jug.py
 
 # Run Missionaries and Cannibals Problem
-python lab_1/cannibal_missionary_problem.py
+python cannibal_missionary_problem.py
 
 # Run Vacuum Cleaner Problem
-python lab_1/vacuum_cleaner_problem.py
+python vacuum_cleaner_problem.py
 ```
 
 ---
