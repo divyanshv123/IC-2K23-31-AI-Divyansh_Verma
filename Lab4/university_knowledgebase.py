@@ -184,7 +184,7 @@ def main():
         print(f"  * Student: {sname} ({sid}) -> Course: {cname} ({cid})")
         print(f"    Status : [{status}] Reason: {reason}\n")
 
-    output_path = os.path.join(os.path.dirname(__file__), "outputs", "Task1.png")
+    output_path = os.path.join(os.path.dirname(__file__), "outputs", "university_knowledgebase.png")
     kb.visualize(output_path)
     print("=" * 65)
 

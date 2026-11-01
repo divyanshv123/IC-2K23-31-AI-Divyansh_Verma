@@ -193,7 +193,7 @@ def main():
     is_proven = engine.backward_chain(query_goal)
     print(f"\nGoal '{query_goal}' Proven: {is_proven}")
 
-    output_path = os.path.join(os.path.dirname(__file__), "outputs", "Task5.png")
+    output_path = os.path.join(os.path.dirname(__file__), "outputs", "rule_engine.png")
     engine.visualize(output_path)
     print("=" * 65)
 

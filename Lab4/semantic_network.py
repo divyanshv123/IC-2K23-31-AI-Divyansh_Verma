@@ -196,7 +196,7 @@ def main():
         val, src = sn.inherit_property(entity, prop)
         print(f"  * Query '{prop}' on [{entity}]: {val} (Inherited from: [{src}])")
 
-    output_path = os.path.join(os.path.dirname(__file__), "outputs", "Task3.png")
+    output_path = os.path.join(os.path.dirname(__file__), "outputs", "semantic_network.png")
     sn.visualize(output_path)
     print("=" * 65)
 

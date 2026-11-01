@@ -156,7 +156,7 @@ def main():
     print(f"\nPrimary Diagnosis: [{top_diagnosis['disease']}] (Confidence: {top_diagnosis['confidence']}%)")
     print(f"Recommended Treatment Protocol: {top_diagnosis['treatment']}\n")
 
-    output_path = os.path.join(os.path.dirname(__file__), "outputs", "Task2.png")
+    output_path = os.path.join(os.path.dirname(__file__), "outputs", "medical_knowledgerepresentation.png")
     med_kb.visualize(output_path)
     print("=" * 65)
 

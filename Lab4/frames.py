@@ -135,7 +135,7 @@ def main():
         val, src = AILab.get_slot(s)
         print(f"  * Slot [{s:16s}] = {str(val):32s} (Source: {src})")
 
-    output_path = os.path.join(os.path.dirname(__file__), "outputs", "Task4.png")
+    output_path = os.path.join(os.path.dirname(__file__), "outputs", "frames.png")
     visualize_frames(output_path)
     print("=" * 65)
 
