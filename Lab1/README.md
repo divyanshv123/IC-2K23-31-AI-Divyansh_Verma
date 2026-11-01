@@ -456,7 +456,7 @@ if __name__ == "__main__":
 
 ### Program Output Screenshot
 
-![Water Jug Output Screenshot](output/water_jug_output.png)
+![Water Jug Output Screenshot](outputs/water_jug_output.png)
 
 ### State Transition Diagram
 
@@ -487,7 +487,7 @@ flowchart TD
 
 ### BFS Solution Output Screenshot
 
-![Missionaries and Cannibals Output](output/cannibal_missionary_output.png)
+![Missionaries and Cannibals Output](outputs/cannibal_missionary_output.png)
 
 ### State-Space River Crossing Sequence Diagram
 
@@ -529,7 +529,7 @@ sequenceDiagram
 
 ### Agent Execution Output Screenshot
 
-![Vacuum Cleaner Output](output/vacuum_cleaner_output.png)
+![Vacuum Cleaner Output](outputs/vacuum_cleaner_output.png)
 
 ### Reflex Decision Flowchart
 
