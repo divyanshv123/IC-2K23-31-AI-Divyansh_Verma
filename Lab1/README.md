@@ -1,4 +1,4 @@
-# Artificial Intelligence Lab – IC-2K23-31
+﻿# Artificial Intelligence Lab – IC-2K23-31
 
 <p align="center">
   <strong>Artificial Intelligence Practical Implementations</strong><br>
@@ -618,5 +618,6 @@ python vacuum_cleaner_problem.py
 
 <p align="center">
   <strong>Artificial Intelligence Lab</strong><br>
-  Roll No: IC-2K23-31 · Department of Instrumentation and Control Engineering
+  Roll No: IC-2K23-31
 </p>
+

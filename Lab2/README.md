@@ -1,4 +1,4 @@
-# Lab 2 – Implementation of AI Search Algorithms
+﻿# Lab 2 – Implementation of AI Search Algorithms
 
 **Course:** Artificial Intelligence Lab (IC-703 C / IC-709D)  
 **Lab Number:** 2  
@@ -461,5 +461,6 @@ This laboratory successfully implemented and compared six classical Artificial I
 
 <p align="center">
   <strong>Artificial Intelligence Laboratory – Lab 2</strong><br>
-  Roll Number: IC-2K23-31 · Department of Instrumentation and Control Engineering
+  Roll Number: IC-2K23-31
 </p>
+
