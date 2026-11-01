@@ -9,202 +9,187 @@
 
 ## 1. Aim / Problem Statement
 
-To implement and evaluate fundamental knowledge representation paradigms in Artificial Intelligence:
-1. **Semantic Networks:** Graph-based conceptual representations with property inheritance reasoning.
-2. **Frames:** Object-centered slot-and-facet structural representations with default values and class inheritance.
-3. **Rule-Based Systems:** Production systems using forward chaining (data-driven) and backward chaining (goal-driven) inference engines for domain advisory decision-making.
-4. **Comparative Analysis:** Critically evaluate the expressiveness, computational complexity, and inference mechanisms across the three knowledge representation schemes.
+To implement and evaluate the five core laboratory activities for **Unit 4: Knowledge Representation & Logical Reasoning**:
+1. **Task 1: University Knowledge Base (`task1_university_kb.py`)**: Model academic entities, course prerequisites, and eligibility evaluation inference rules.
+2. **Task 2: Medical Knowledge Representation (`task2_medical_kr.py`)**: Implement an intelligent clinical diagnostic knowledge base calculating differential diagnostic confidence scores from observed symptoms.
+3. **Task 3: Semantic Network Construction (`task3_semantic_network.py`)**: Construct associative graph taxonomies with hierarchical `IS_A` inheritance property traversal.
+4. **Task 4: Frame Representation (`task4_frames.py`)**: Implement object-centered frame structures with slots, facets, default values, and parent class delegation.
+5. **Task 5: Logical Rule Engine (`task5_rule_engine.py`)**: Build production systems with Forward Chaining (data-driven) and Backward Chaining (goal-driven) inference engines.
 
 ---
 
-## 2. Theoretical Background & Algorithms
+## 2. Directory Structure
 
-Knowledge Representation (KR) is the formal study of how an autonomous agent represents real-world entities, concepts, rules, and facts so that inference engines can derive new knowledge and make intelligent decisions.
-
-### 2.1 Paradigm 1: Semantic Networks (Quillian, 1968)
-A **Semantic Network** represents declarative knowledge as a directed graph $G = (V, E)$:
-- **Vertices ($V$):** Real-world concepts, entities, or instances (e.g., `UniversityPerson`, `Faculty`, `Student`, `Professor`).
-- **Directed Edges ($E$):** Semantic relations connecting concepts, primarily:
-  - `IS_A`: Taxonomic generalization/subsumption ($A \text{ IS\_A } B \implies A \subseteq B$).
-  - Associative links: Domain relations such as `TEACHES`, `ENROLLED_IN`, `ASSISTS`.
-
-**Inheritance Algorithm:**
-To evaluate query $\text{Property}(x, p)$:
-1. If $p$ is directly attached to node $x$, return $\text{value}(x, p)$.
-2. Else, traverse all outgoing `IS_A` links $y \in \text{Parents}(x)$ recursively.
-3. If no ancestor contains $p$, return `None` (open-world / absent property).
-
----
-
-### 2.2 Paradigm 2: Frame-Based Systems (Minsky, 1975)
-A **Frame** is a record-like, object-centered data structure representing a stereotypical concept or situation:
-$$\text{Frame} = \langle \text{Name}, \text{Parent}, \{\text{Slot}_i \to \langle \text{Value}_i, \text{Facets}_i \rangle\} \rangle$$
-- **Slots:** Attributes representing features or relationships (e.g., `instructor`, `credits`, `attendance_threshold`).
-- **Facets:** Sub-attributes specifying data constraints, default values, or procedural attachments (`if-needed`, `if-added`).
-- **Frame Inheritance:** Sub-frames inherit attributes from super-frames; local slot assignments override inherited values (polymorphic specialization).
-
----
-
-### 2.3 Paradigm 3: Production Rule Systems & Inference Engines
-A **Production System** represents procedural and heuristic domain expertise through IF-THEN rules:
-$$\text{Rule } R_k: \quad \text{IF } \bigwedge_{j} c_{k,j} \quad \text{THEN } a_k$$
-
-A rule-based architecture consists of:
-1. **Knowledge Base (Rule Base):** Static set of domain rules.
-2. **Working Memory (Fact Base):** Dynamic set of known facts for the current problem instance.
-3. **Inference Engine:** Executes reasoning cycles via two modes:
-
-#### Forward Chaining (Data-Driven Inference)
-- **Direction:** Facts $\longrightarrow$ Goals.
-- **Algorithm:**
-  1. Initialize $\text{Inferred} \leftarrow \text{WorkingMemory}$.
-  2. In each cycle, find all un-fired rules whose antecedents $\subseteq \text{Inferred}$.
-  3. Add their consequents to $\text{Inferred}$.
-  4. Repeat until a fixed point is reached (no new facts can be deduced).
-
-#### Backward Chaining (Goal-Driven Inference)
-- **Direction:** Goal / Hypothesis $\longrightarrow$ Facts.
-- **Algorithm:**
-  1. To verify hypothesis $G$: If $G \in \text{WorkingMemory}$, return `True`.
-  2. Find all candidate rules concluding $G$.
-  3. For each candidate rule, recursively evaluate all antecedent sub-goals.
-  4. If all antecedents of any candidate rule hold, conclude $G$ is `True`; otherwise, backtrack.
-
----
-
-## 3. Implementation Details
-
-The laboratory implementation is structured within [`Lab4/`](.):
 ```
 Lab4/
-├── knowledge_representation.py      # Core modular Python implementation
+├── task1_university_kb.py       # Task 1: University Knowledge Base & Enrollment Engine
+├── task2_medical_kr.py          # Task 2: Clinical Diagnostic Knowledge Base
+├── task3_semantic_network.py    # Task 3: Semantic Network & Inheritance Reasoning
+├── task4_frames.py              # Task 4: Frame-Based Knowledge Representation
+├── task5_rule_engine.py         # Task 5: Dual-Direction Rule Engine (Forward & Backward)
 ├── outputs/
-│   └── semantic_network.png         # Generated semantic network graph
-└── README.md                        # Complete laboratory documentation
+│   ├── Task1.png                # University KB Ontological Diagram
+│   ├── Task2.png                # Symptom-to-Disease Bipartite Diagnostic Map
+│   ├── Task3.png                # Semantic Network Graph
+│   ├── Task4.png                # Frame Hierarchy & Slot Resolution Layout
+│   └── Task5.png                # Rule Execution & Dependency Flow Graph
+└── README.md                    # Comprehensive Laboratory Documentation
 ```
-
-### Module Breakdown:
-1. `SemanticNetwork`: Adjacency-list graph model with recursive taxonomic lookup and custom Matplotlib visualizer.
-2. `Frame`: Hierarchical object structure supporting local values, default facets, and parent delegation.
-3. `RuleBasedExpertSystem`: Academic Advisory Engine equipped with both `forward_chain()` and `backward_chain()` methods.
 
 ---
 
-## 4. Results & Terminal Output
+## 3. Algorithms & Theoretical Background
 
-Execution trace obtained from running `python Lab4/knowledge_representation.py`:
+### 3.1 Task 1: University Knowledge Base
+- **Entities & Schema:** Formulates entities into computable relational tables: $\text{Departments}$, $\text{Faculty}$, $\text{Courses}$, and $\text{Students}$.
+- **Inference Rule:**
+  $$\text{Eligible}(s, c) \iff \Big( \text{Prerequisites}(c) \subseteq \text{CompletedCourses}(s) \Big) \land \big( \text{CGPA}(s) \ge 6.0 \big)$$
 
+### 3.2 Task 2: Medical Knowledge Representation
+- **Diagnostic Heuristic:** Measures symptom overlap using set intersection:
+  $$\text{Confidence}(D, S_{\text{patient}}) = \frac{|S_{\text{patient}} \cap S_{\text{disease}}|}{|S_{\text{disease}}|} \times 100\%$$
+- Differential diagnostic ranking sorts prospective disease hypotheses in descending order of confidence score.
+
+### 3.3 Task 3: Semantic Network Construction
+- **Graph Topology:** Directed graph $G = (V, E)$ where nodes represent conceptual categories and arcs represent semantic relations (`IS_A`, `PREYS_ON`).
+- **Inheritance Traversal:** Queries climb up `IS_A` links recursively until the requested attribute is found or the root concept is reached.
+
+### 3.4 Task 4: Frame-Based Representation
+- **Minsky Frame Architecture:** Object-centered schema $\langle \text{Name}, \text{Parent}, \text{Slots}, \text{Facets} \rangle$.
+- **Lookup Resolution Order:**
+  $$\text{Value}(S) = \text{LocalSlot}(S) \longrightarrow \text{DefaultFacet}(S) \longrightarrow \text{InheritedSlot}_{\text{Parent}}(S)$$
+
+### 3.5 Task 5: Logical Rule Engine
+- **Forward Chaining (Data-Driven):** Starts with known working memory facts $W$. Iteratively evaluates rule antecedents:
+  $$\text{IF } \text{Antecedents}(R_i) \subseteq W \implies W \leftarrow W \cup \{\text{Consequent}(R_i)\}$$
+- **Backward Chaining (Goal-Driven):** Formulates the goal as a hypothesis and recursively verifies that candidate rule antecedents are satisfied by facts or sub-hypotheses.
+
+---
+
+## 4. Execution Results & Terminal Outputs
+
+### 4.1 Task 1: University Knowledge Base
 ```text
-======================================================================
-  LAB 4: KNOWLEDGE REPRESENTATION & REASONING (UNIT 4)
-======================================================================
+Evaluating Enrollment Queries:
+  * Student: Divyansh Verma (S31) -> Course: Artificial Intelligence Lab (IC709D)
+    Status : [ELIGIBLE] Reason: Eligible for enrollment.
 
---- 1. SEMANTIC NETWORK KNOWLEDGE BASE ---
-Inheritance Queries:
-  * Query 'campus_access' for [UndergradStudent]: Granted (Inherited from: [UniversityPerson])
-  * Query 'degree' for [UndergradStudent]: B.Tech (Inherited from: [UndergradStudent])
-  * Query 'campus_access' for [Professor]: Granted (Inherited from: [UniversityPerson])
-  * Query 'voting_rights' for [Professor]: Senate_Member (Inherited from: [Professor])
-[Semantic Network] Diagram generated and saved to: Lab4/outputs/semantic_network.png
+  * Student: Divyansh Verma (S31) -> Course: Advanced Robotics (IC710)
+    Status : [INELIGIBLE] Reason: Missing prerequisites: ['IC709D']
 
---- 2. FRAME-BASED KNOWLEDGE REPRESENTATION ---
+  * Student: Aman Kumar (S45) -> Course: Artificial Intelligence Lab (IC709D)
+    Status : [INELIGIBLE] Reason: CGPA 5.8 is below minimum threshold (6.0).
 
-Displaying Frame Structure for 'IC_709D_AI_Lab':
-Frame: [IC_709D_AI_Lab] (Parent: LabCourse)
-  * Slot: course_title    = Artificial Intelligence Laboratory
-  * Slot: instructor      = Dr. Faculty
-  * Slot: credits         = 2
+  * Student: Rohan Mehta (S12) -> Course: Artificial Intelligence Lab (IC709D)
+    Status : [INELIGIBLE] Reason: Missing prerequisites: ['CS101']
+```
 
-Slot Inheritance Resolution:
-  * Slot [course_title        ]: Artificial Intelligence Laboratory (Resolved from: IC_709D_AI_Lab)
-  * Slot [practical_exam      ]: Mandatory                 (Resolved from: LabCourse)
-  * Slot [attendance_threshold]: 75%                       (Resolved from: Course)
-  * Slot [institution         ]: Engineering Institute     (Resolved from: Course)
+### 4.2 Task 2: Medical Knowledge Representation
+```text
+Case Study: Patient P-102
+Reported Symptoms: high fever, loss of smell, dry cough, fatigue
 
---- 3. RULE-BASED EXPERT SYSTEM (ACADEMIC ADVISORY) ---
-Initial Working Memory (Student Facts): ['cgpa_above_8_5', 'attendance_above_85', 'no_disciplinary_action', 'published_paper']
+Differential Diagnostic Rankings:
+Disease                  | Confidence   | Severity         | Matched Symptoms
+---------------------------------------------------------------------------
+COVID-19                 |     80.0 %  | Moderate to Severe | loss_of_smell, dry_cough, high_fever, fatigue
+Influenza (Flu)          |     60.0 %  | Moderate         | fatigue, dry_cough, high_fever
+Bacterial Pneumonia      |     20.0 %  | Severe           | high_fever
+Common Cold              |      0.0 %  | Mild             | None
+Allergic Rhinitis        |      0.0 %  | Mild             | None
 
---- [Forward Chaining Execution Trace] ---
-  Cycle 1: Fired 'R1_High_CGPA' -> Inferred fact: 'academically_distinguished'
-  Cycle 1: Fired 'R2_Research' -> Inferred fact: 'research_competent'
-  Cycle 1: Fired 'R3_Conduct' -> Inferred fact: 'good_standing'
-  Cycle 1: Fired 'R4_Merit_Scholarship' -> Inferred fact: 'eligible_for_merit_scholarship'
-  Cycle 1: Fired 'R5_Dean_Honor_List' -> Inferred fact: 'awarded_dean_honor_roll'
-Total facts derived: 9 (Fired 5 rules)
+Primary Diagnosis: [COVID-19] (Confidence: 80.0%)
+Recommended Treatment Protocol: Isolation, pulse oximetry monitoring, consult physician.
+```
 
-Final Inferred Facts:
-  + academically_distinguished
-  + attendance_above_85
-  + awarded_dean_honor_roll
-  + cgpa_above_8_5
-  + eligible_for_merit_scholarship
-  + good_standing
-  + no_disciplinary_action
-  + published_paper
-  + research_competent
+### 4.3 Task 3: Semantic Network Construction
+```text
+Demonstrating Hierarchical Property Inheritance:
+  * Query 'breathes' on [Lion]: True (Inherited from: [Animal])
+  * Query 'has_fur' on [Lion]: True (Inherited from: [Mammal])
+  * Query 'sound' on [Lion]: Roar (Inherited from: [Lion])
+  * Query 'breathes' on [Eagle]: True (Inherited from: [Animal])
+  * Query 'can_fly' on [Eagle]: True (Inherited from: [FlyingBird])
+  * Query 'can_fly' on [Penguin]: False (Inherited from: [FlightlessBird])
+  * Query 'can_swim' on [Penguin]: True (Inherited from: [Penguin])
+  * Query 'has_feathers' on [Penguin]: True (Inherited from: [Bird])
+```
 
---- Backward Chaining Query: Can we prove 'awarded_dean_honor_roll'? ---
-? Testing Goal: 'awarded_dean_honor_roll'
-Trying Rule [R5_Dean_Honor_List]: Requires {'eligible_for_merit_scholarship', 'research_competent'}
-  ? Testing Goal: 'eligible_for_merit_scholarship'
-  Trying Rule [R4_Merit_Scholarship]: Requires {'academically_distinguished', 'good_standing'}
-    ? Testing Goal: 'academically_distinguished'
-    Trying Rule [R1_High_CGPA]: Requires {'cgpa_above_8_5'}
-      ? Testing Goal: 'cgpa_above_8_5'
-      -> Confirmed directly from known facts.
-    -> Rule [R1_High_CGPA] SUCCEEDED! Verified 'academically_distinguished'
-    ? Testing Goal: 'good_standing'
-    Trying Rule [R3_Conduct]: Requires {'attendance_above_85', 'no_disciplinary_action'}
-      ? Testing Goal: 'attendance_above_85'
-      -> Confirmed directly from known facts.
-      ? Testing Goal: 'no_disciplinary_action'
-      -> Confirmed directly from known facts.
-    -> Rule [R3_Conduct] SUCCEEDED! Verified 'good_standing'
-  -> Rule [R4_Merit_Scholarship] SUCCEEDED! Verified 'eligible_for_merit_scholarship'
-  ? Testing Goal: 'research_competent'
-  Trying Rule [R2_Research]: Requires {'published_paper'}
-    ? Testing Goal: 'published_paper'
-    -> Confirmed directly from known facts.
-  -> Rule [R2_Research] SUCCEEDED! Verified 'research_competent'
--> Rule [R5_Dean_Honor_List] SUCCEEDED! Verified 'awarded_dean_honor_roll'
+### 4.4 Task 4: Frame Representation
+```text
+Instantiated Frame: [IC_709D_AI_Lab] inheriting from [LabCourse] -> [Course]
 
-Hypothesis 'awarded_dean_honor_roll' Proven: True
+Slot Resolution Trace:
+  * Slot [title           ] = Artificial Intelligence Laboratory (Source: IC_709D_AI_Lab)
+  * Slot [instructor      ] = Dr. Sharma                       (Source: IC_709D_AI_Lab)
+  * Slot [practical_exam  ] = Mandatory                        (Source: LabCourse)
+  * Slot [lab_safety      ] = Required                         (Source: LabCourse)
+  * Slot [grading_mode    ] = Letter_Grade                     (Source: Course)
+  * Slot [institution     ] = Engineering Institute            (Source: Course)
+```
+
+### 4.5 Task 5: Logical Rule Engine
+```text
+Initial Working Memory Facts: ['cgpa_high', 'good_attendance', 'clean_record', 'research_paper']
+
+--- Forward Chaining Trace ---
+  Cycle 1: Fired [R1] -> Added fact 'academically_strong'
+  Cycle 1: Fired [R2] -> Added fact 'good_conduct'
+  Cycle 1: Fired [R3] -> Added fact 'research_proven'
+  Cycle 1: Fired [R4] -> Added fact 'scholarship_eligible'
+  Cycle 1: Fired [R5] -> Added fact 'dean_honor_roll'
+Total deduced facts: 9 (Rules fired: 5)
+
+--- Backward Chaining Query: Can we prove 'dean_honor_roll'? ---
+? Evaluating Goal: 'dean_honor_roll'
+Trying [R5]: Antecedents {'scholarship_eligible', 'research_proven'}
+  ? Evaluating Goal: 'scholarship_eligible'
+  Trying [R4]: Antecedents {'good_conduct', 'academically_strong'}
+    ... [All Subgoals Verified Successfully] ...
+-> [R5] SUCCEEDED! Verified 'dean_honor_roll'
+
+Goal 'dean_honor_roll' Proven: True
 ```
 
 ---
 
 ## 5. Performance Analysis & Comparative Study
 
-The table below contrasts the three primary knowledge representation paradigms across core architectural criteria:
-
-| Evaluation Dimension | Semantic Networks | Frames | Rule-Based Systems |
+| Evaluation Criteria | Semantic Networks (Task 3) | Frames (Task 4) | Rule-Based Systems (Task 5) |
 | :--- | :--- | :--- | :--- |
-| **Primary Data Structure** | Directed Graph (Nodes & Labeled Arcs) | Nested Records (Slots, Facets, Defaults) | Production Rules (IF-THEN Antecedent-Consequent) |
-| **Knowledge Classification** | Structural / Declarative / Associative | Object-Centered / Situational | Procedural / Heuristic |
-| **Reasoning Mechanism** | Path Traversal & Property Inheritance | Default Delegation & Slot Lookups | Forward & Backward Chaining |
-| **Default Reasoning** | Limited / Hard to represent exceptions | Native support via Default Facets | Modeled via negation-as-failure rules |
-| **Modularity & Scalability** | Moderate (Tangled graphs risk circularity) | High (Hierarchical encapsulation) | Very High (Rules can be added independently) |
-| **Computational Overhead** | $O(V + E)$ graph traversal per query | $O(D)$ where $D$ is inheritance depth | $O(R \cdot F)$ per matching cycle |
-| **Best Application Domain** | Taxonomies, Ontologies, Associative Memory | Knowledge Bases, Entity Modeling | Medical Diagnostics, Advisory Systems |
+| **Primary Data Structure** | Directed Graph (Nodes & Edges) | Nested Record Objects (Slots & Facets) | Production Rules (IF-THEN) |
+| **Knowledge Type** | Associative / Structural Taxonomy | Stereotypical / Object-Oriented | Procedural / Heuristic Reasoning |
+| **Reasoning Method** | Graph Traversal & Inheritance | Slot Delegation & Default Resolution | Forward / Backward Inference Chaining |
+| **Handling Exceptions** | Prone to link ambiguities | Handled via slot-override facets | Explicit negation rules required |
+| **Modularity & Scaling** | Moderate (cycles can complicate search) | High (structured hierarchical packages) | Very High (independent rules modularly added) |
+| **Best Application** | Concept Ontologies & Taxonomies | Entity State Modeling & Catalogues | Medical Diagnostics & Expert Advisories |
 
 ---
 
-## 6. Graphical Visualizations
+## 6. Generated Visualizations
 
-The semantic network graph constructed for the University Academic domain is displayed below:
+### Task 1: University Knowledge Base Structure
+![Task 1 - University KB](outputs/Task1.png)
 
-![Semantic Network Knowledge Base](outputs/semantic_network.png)
+### Task 2: Medical Diagnostic Mapping
+![Task 2 - Medical Diagnosis](outputs/Task2.png)
 
-### Architectural Observations:
-- **Red Arrows (`IS_A`)**: Represent strict ontological inheritance paths (`Professor` $\to$ `Faculty` $\to$ `UniversityPerson`).
-- **Blue Arrows (`Domain Relations`)**: Capture behavioral interactions across entities (e.g., `Professor` $\xrightarrow{\text{TEACHES}}$ `IC_709D_Lab`, `TeachingAssistant` $\xrightarrow{\text{ASSISTS}}$ `Faculty`).
-- **Inheritance Traversal**: Queries targeting `UndergradStudent` successfully resolve higher-level properties like `campus_access: Granted` by traversing upward to `UniversityPerson`.
+### Task 3: Semantic Network Construction
+![Task 3 - Semantic Network](outputs/Task3.png)
+
+### Task 4: Frame Representation Hierarchy
+![Task 4 - Frame Representation](outputs/Task4.png)
+
+### Task 5: Logical Rule Engine Dependency Flow
+![Task 5 - Rule Engine](outputs/Task5.png)
 
 ---
 
 ## 7. Learning Outcomes (CO1, CO3)
 
-- **CO1 (Problem Formulation & Intelligent Problem Solving):** Formulated complex academic advisory and taxonomic domains into computable knowledge representations.
-- **CO3 (Knowledge Representation & Reasoning):** Implemented property inheritance across graphs, slot-facet structures, and dual-direction inference engines (Forward & Backward Chaining).
-- Analyzed tradeoffs between declarative associative graphs and procedural production systems.
-- Mastered the design of modular, explainable AI reasoning frameworks without relying on black-box heuristics.
+- **CO1 (AI Problem Formulation & Intelligent Problem Solving):** Modeled domain knowledge across academic, medical, and taxonomic environments into computable representations.
+- **CO3 (Knowledge Representation & Logical Reasoning):**
+  - Implemented graph-based semantic networks with multi-level property inheritance.
+  - Implemented frame-based knowledge systems with default facets and behavioral attachments.
+  - Constructed production rule inference engines implementing both forward and backward chaining search algorithms.
+  - Formulated comparative criteria evaluating expressiveness, modularity, and inferential efficiency.
