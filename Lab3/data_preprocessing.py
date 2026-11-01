@@ -188,6 +188,14 @@ def generate_visualizations(df, X_raw, X_scaled):
     print(f"Visualization plots saved successfully to: {plot_path}\n")
 
 
+def save_processed_data(df, filename="placement_processed.csv"):
+    output_dir = os.path.join(os.path.dirname(__file__), "..", "datasets")
+    os.makedirs(output_dir, exist_ok=True)
+    out_path = os.path.join(output_dir, filename)
+    df.to_csv(out_path, index=False)
+    print(f"[Step 8] Processed dataset saved successfully to: {out_path}\n")
+
+
 def main():
     try:
         df_raw = load_dataset()
@@ -198,6 +206,7 @@ def main():
 
         X, y, X_train, X_train_scaled = scale_and_split(df_encoded)
         generate_visualizations(df_clean, X_train, X_train_scaled)
+        save_processed_data(df_encoded)
 
         print("=== Data Preprocessing Pipeline Completed Successfully ===")
 
