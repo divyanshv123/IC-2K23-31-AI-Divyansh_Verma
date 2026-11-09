@@ -1,8 +1,4 @@
 """
-Lab 6 - Part 2: Automatic Differentiation with PyTorch Autograd
-Author: Divyansh Verma (IC-2K23-31)
-Course: IC-709D / IC-703 C | Artificial Intelligence Laboratory (Unit 6, CO4, CO5)
-
 Description:
 Demonstrates automatic differentiation and gradient computation in PyTorch:
 1. requires_grad tracking and computational graph inspectability (grad_fn)
