@@ -1,8 +1,4 @@
 """
-Lab 6 - Part 1: PyTorch Tensor Operations and Manipulation
-Author: Divyansh Verma (IC-2K23-31)
-Course: IC-709D / IC-703 C | Artificial Intelligence Laboratory (Unit 6, CO4, CO5)
-
 Description:
 Covers fundamental tensor manipulation in PyTorch:
 1. Tensor creation (zeros, ones, rand, arange, from lists)
