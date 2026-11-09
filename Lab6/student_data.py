@@ -1,7 +1,4 @@
 """
-Student Dataset Generation and Preprocessing Helper
-Author: Divyansh Verma (IC-2K23-31)
-Course: IC-709D / IC-703 C | Artificial Intelligence Laboratory (Unit 6)
 
 Description:
 Creates and loads the student exam performance dataset (student_scores.csv),
